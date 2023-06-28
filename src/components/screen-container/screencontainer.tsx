@@ -4,13 +4,12 @@ import { styles } from './styles';
 
 interface ScreenContainerProps {
   children?: JSX.Element | Array<JSX.Element> | React.ReactNode | Array<React.ReactNode>;
-  padding?: boolean;
 }
 
-const ScreenContainer = ({ children, padding = true }: ScreenContainerProps) => {
+const ScreenContainer = ({ children }: ScreenContainerProps) => {
   return (
     <SafeAreaView style={styles.container}>
-      <View style={[styles.content, !padding && styles.noPadding]}>{children}</View>
+      <View style={styles.content}>{children}</View>
     </SafeAreaView>
   );
 };

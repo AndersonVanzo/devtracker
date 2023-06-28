@@ -9,7 +9,7 @@ import { getSelectedUser } from '../../../redux/features/users/usersSlice';
 import { api } from '../../../api/api';
 import Loader from '../../../components/loader/loader';
 import ErrorView from '../../../components/error-view/errorview';
-import { FlatList, View } from 'react-native';
+import { FlatList } from 'react-native';
 import { styles } from './styles';
 
 type RepositoriesScreenProps = CompositeScreenProps<
@@ -49,7 +49,7 @@ const Repositores = ({ navigation }: RepositoriesScreenProps) => {
   }, []);
 
   return (
-    <ScreenContainer padding={false}>
+    <ScreenContainer>
       <Header onBackButtonPress={onBackButtonPress} />
       {loading ? (
         <Loader message={'Searching repositories...'} />
@@ -61,7 +61,6 @@ const Repositores = ({ navigation }: RepositoriesScreenProps) => {
           style={styles.list}
           renderItem={({ item }) => <RepositoryCard key={item.id} data={item as UserRepository} />}
           contentContainerStyle={styles.listContent}
-          ItemSeparatorComponent={() => <View style={styles.listSeparator} />}
         />
       )}
     </ScreenContainer>

@@ -49,8 +49,8 @@ const Home = ({ navigation }: HomeScreenProps) => {
           onChangeValue={setSearchText}
         />
         <Button label={'Find'} onPress={onSearchButtonPress} />
-        {lastSearched.length > 0 ? <RecentSearch data={lastSearched} onSelect={onSelectedUser} /> : null}
       </View>
+      {lastSearched.length > 0 ? <RecentSearch data={lastSearched} onSelect={onSelectedUser} /> : null}
     </ScreenContainer>
   );
 };

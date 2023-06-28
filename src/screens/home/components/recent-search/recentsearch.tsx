@@ -17,7 +17,7 @@ const RecentSearch = ({ data, onSelect }: RecentSearchProps) => {
       <FlatList
         data={data}
         renderItem={({ item }) => <UserCard key={item.id} data={item} onSelect={onSelect} />}
-        ItemSeparatorComponent={() => <View style={styles.separator} />}
+        contentContainerStyle={styles.content}
         showsVerticalScrollIndicator={false}
       />
     </View>

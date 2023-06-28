@@ -83,7 +83,7 @@ const Profile = ({ navigation, route }: ProfileScreenProps) => {
   }, []);
 
   return (
-    <ScreenContainer padding={false}>
+    <ScreenContainer>
       <Header onBackButtonPress={onBackButtonPress} />
       {loading ? (
         <Loader message={'Searching dev...'} />

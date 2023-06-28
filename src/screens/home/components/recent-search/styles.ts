@@ -4,6 +4,7 @@ import { colors } from '../../../../common/colors';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingHorizontal: 24,
   },
   header: {
     paddingBottom: 12,
@@ -12,7 +13,8 @@ export const styles = StyleSheet.create({
     color: colors.text,
     fontSize: 14,
   },
-  separator: {
-    height: 12,
+  content: {
+    gap: 12,
+    paddingBottom: 24,
   },
 });

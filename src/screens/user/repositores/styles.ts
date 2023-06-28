@@ -5,6 +5,7 @@ export const styles = StyleSheet.create({
     marginTop: 24,
   },
   listContent: {
+    gap: 12,
     paddingHorizontal: 24,
     paddingBottom: 24,
   },

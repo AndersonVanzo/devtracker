@@ -4,6 +4,7 @@ export const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     flexDirection: 'row',
+    paddingHorizontal: 8,
     paddingTop: 24,
   },
   button: {

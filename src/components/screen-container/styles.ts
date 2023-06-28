@@ -8,10 +8,6 @@ export const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    padding: 24,
     position: 'relative',
-  },
-  noPadding: {
-    padding: 0,
   },
 });
