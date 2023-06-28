@@ -59,6 +59,7 @@ const Profile = ({ navigation, route }: ProfileScreenProps) => {
   };
 
   const updateLoadedUser = async () => {
+    setLoading(false);
     const response = await loadUserData();
     if (response.success && response.data) {
       dispatch(updatedSearchedUser(response.data));
