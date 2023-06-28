@@ -12,6 +12,6 @@ export const styles = StyleSheet.create({
   label: {
     color: colors.button_label,
     fontSize: 16,
-    fontWeight: '700',
+    fontWeight: '500',
   },
 });
