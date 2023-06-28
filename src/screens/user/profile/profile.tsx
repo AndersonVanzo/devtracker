@@ -88,7 +88,7 @@ const Profile = ({ navigation, route }: ProfileScreenProps) => {
       {loading ? (
         <Loader />
       ) : userData ? (
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <Image style={styles.image} source={{ uri: userData.avatar_url }} />
           <View style={styles.content}>
             <Text style={styles.username}>{userData.name}</Text>
