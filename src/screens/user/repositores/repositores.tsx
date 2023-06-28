@@ -11,6 +11,7 @@ import Loader from '../../../components/loader/loader';
 import ErrorView from '../../../components/error-view/errorview';
 import { FlatList } from 'react-native';
 import { styles } from './styles';
+import EmptyView from './components/empty-view/emptyview';
 
 type RepositoriesScreenProps = CompositeScreenProps<
   NativeStackScreenProps<UserNavigationParamList, 'RepositoresScreen'>,
@@ -38,10 +39,14 @@ const Repositores = ({ navigation }: RepositoriesScreenProps) => {
     }
     setLoading(true);
     const response = await api.users.repos(userData.login);
+    setLoading(false);
     if (response.success && response.data) {
       setRepos(response.data);
+      return;
     }
-    setLoading(false);
+    if (!response.success) {
+      setError(true);
+    }
   };
 
   React.useEffect(() => {
@@ -55,6 +60,8 @@ const Repositores = ({ navigation }: RepositoriesScreenProps) => {
         <Loader message={'Searching repositories...'} />
       ) : error ? (
         <ErrorView />
+      ) : repos.length === 0 ? (
+        <EmptyView />
       ) : (
         <FlatList
           data={repos}
