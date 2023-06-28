@@ -41,7 +41,13 @@ const Home = ({ navigation }: HomeScreenProps) => {
     <ScreenContainer>
       <View style={styles.content}>
         <PageTitle title={'Find'} effectTitle={'a dev'} />
-        <SearchBar ref={inputRef} value={searchText} placeholder={'Search a dev'} onChangeValue={setSearchText} />
+        <SearchBar
+          ref={inputRef}
+          value={searchText}
+          onSubmit={onSearchButtonPress}
+          placeholder={'Search a dev'}
+          onChangeValue={setSearchText}
+        />
         <Button label={'Find'} onPress={onSearchButtonPress} />
         {lastSearched.length > 0 ? <RecentSearch data={lastSearched} onSelect={onSelectedUser} /> : null}
       </View>
