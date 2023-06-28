@@ -28,9 +28,9 @@ export const usersSlice = createSlice({
         newLastSearched[userIndex] = action.payload;
       } else {
         if (newLastSearched.length === 5) {
-          newLastSearched.shift();
+          newLastSearched.pop();
         }
-        newLastSearched.push(action.payload);
+        newLastSearched.unshift(action.payload);
       }
       state.lastSearched = newLastSearched;
     },
