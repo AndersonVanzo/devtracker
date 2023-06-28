@@ -22,24 +22,26 @@ export const usersSlice = createSlice({
       state.selectedUser = undefined;
     },
     addLastSearched: (state: Draft<UsersSlice>, action: PayloadAction<UserData>): void => {
+      const newLastSearched = state.lastSearched;
       const userIndex = state.lastSearched.findIndex(item => item.id === action.payload.id);
       if (userIndex !== -1) {
-        state.lastSearched[userIndex] = action.payload;
-        return;
+        newLastSearched[userIndex] = action.payload;
+      } else {
+        if (newLastSearched.length === 5) {
+          newLastSearched.shift();
+        }
+        newLastSearched.push(action.payload);
       }
-      const newLastSearched = state.lastSearched;
-      if (newLastSearched.length === 5) {
-        newLastSearched.shift();
-      }
-      newLastSearched.push(action.payload);
       state.lastSearched = newLastSearched;
     },
     updatedSearchedUser: (state: Draft<UsersSlice>, action: PayloadAction<UserData>): void => {
-      const userIndex = state.lastSearched.findIndex(item => item.id === action.payload.id);
+      const newLastSearched = state.lastSearched;
+      const userIndex = newLastSearched.findIndex(item => item.id === action.payload.id);
       if (userIndex === -1) {
         return;
       }
-      state.lastSearched[userIndex] = action.payload;
+      newLastSearched[userIndex] = action.payload;
+      state.lastSearched = newLastSearched;
     },
     clearLastSearched: (state: Draft<UsersSlice>): void => {
       state.lastSearched = [];
