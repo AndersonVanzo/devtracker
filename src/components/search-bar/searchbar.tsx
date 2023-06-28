@@ -10,10 +10,12 @@ interface SearchBarProps {
   onChangeValue: (value: string) => void;
 }
 
-const SearchBar = ({ value, placeholder, onChangeValue }: SearchBarProps) => {
+const SearchBar = React.forwardRef<TextInput, SearchBarProps>((props, ref) => {
+  const { value, placeholder, onChangeValue } = props;
   return (
     <View style={styles.container}>
       <TextInput
+        ref={ref}
         value={value}
         style={styles.input}
         placeholder={placeholder}
@@ -25,6 +27,6 @@ const SearchBar = ({ value, placeholder, onChangeValue }: SearchBarProps) => {
       </View>
     </View>
   );
-};
+});
 
 export default SearchBar;
