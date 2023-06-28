@@ -4,7 +4,7 @@ export {};
 
 declare global {
   type UserNavigationParamList = {
-    ProfileScreen: { search: string };
+    ProfileScreen: { search: string; data?: UserData };
     RepositoresScreen: undefined;
   };
 

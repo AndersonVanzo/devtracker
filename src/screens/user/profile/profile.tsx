@@ -11,7 +11,13 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import Loader from './components/loader/loader';
 import { api } from '../../../api/api';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
-import { getSelectedUser, removeSelectedUser, setSelectedUser } from '../../../redux/features/users/usersSlice';
+import {
+  addLastSearched,
+  getSelectedUser,
+  removeSelectedUser,
+  setSelectedUser,
+  updatedSearchedUser,
+} from '../../../redux/features/users/usersSlice';
 import NotFound from './components/not-found/notfound';
 import ErrorView from '../../../components/error-view/errorview';
 
@@ -40,22 +46,39 @@ const Profile = ({ navigation, route }: ProfileScreenProps) => {
     navigation.navigate('UserNavigation', { screen: 'RepositoresScreen' });
   };
 
-  const loadUserData = async () => {
+  const searchNewUser = async () => {
     setLoading(true);
-    setError(false);
-    const response = await api.users.get(route.params.search);
+    const response = await loadUserData();
     setLoading(false);
     if (response.success && response.data) {
-      dispatch(setSelectedUser(response.data));
-      return;
+      dispatch(addLastSearched(response.data));
     }
     if (!response.success && response.status !== 404) {
       setError(true);
     }
   };
 
+  const updateLoadedUser = async () => {
+    const response = await loadUserData();
+    if (response.success && response.data) {
+      dispatch(updatedSearchedUser(response.data));
+    }
+  };
+
+  const loadUserData = async () => {
+    const response = await api.users.get(route.params.search);
+    if (response.success && response.data) {
+      dispatch(setSelectedUser(response.data));
+    }
+    return response;
+  };
+
   React.useEffect(() => {
-    loadUserData();
+    if (route.params.data) {
+      updateLoadedUser();
+    } else {
+      searchNewUser();
+    }
   }, []);
 
   return (
