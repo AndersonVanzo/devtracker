@@ -20,6 +20,7 @@ const SearchBar = React.forwardRef<TextInput, SearchBarProps>((props, ref) => {
         style={styles.input}
         placeholder={placeholder}
         onChangeText={onChangeValue}
+        returnKeyType={'search'}
         placeholderTextColor={colors.placeholder}
       />
       <View style={styles.icon}>
