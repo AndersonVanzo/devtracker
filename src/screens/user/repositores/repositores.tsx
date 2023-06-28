@@ -3,6 +3,7 @@ import ScreenContainer from '../../../components/screen-container/screencontaine
 import Header from './components/header/header';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import RepositoryCard from './components/repository-card/repositorycard';
 
 type RepositoriesScreenProps = CompositeScreenProps<
   NativeStackScreenProps<UserNavigationParamList, 'RepositoresScreen'>,
@@ -21,6 +22,7 @@ const Repositores = ({ navigation }: RepositoriesScreenProps) => {
   return (
     <ScreenContainer>
       <Header onBackButtonPress={onBackButtonPress} />
+      <RepositoryCard />
     </ScreenContainer>
   );
 };
