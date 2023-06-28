@@ -5,14 +5,21 @@ import SearchBar from '../../components/search-bar/searchbar';
 import Button from '../../components/button/button';
 import { View } from 'react-native';
 import { styles } from './styles';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-const Home = () => {
+type HomeScreenProps = NativeStackScreenProps<RootStackParamsList, 'HomeScreen'>;
+
+const Home = ({ navigation }: HomeScreenProps) => {
+  const onSearchButtonPress = () => {
+    navigation.navigate('UserNavigation', { screen: 'ProfileScreen' });
+  };
+
   return (
     <ScreenContainer>
       <View style={styles.content}>
         <PageTitle title={'Find'} effectTitle={'a dev'} />
         <SearchBar value={''} placeholder={'Search a dev'} onChangeValue={() => console.log()} />
-        <Button label={'Find'} onPress={() => console.log()} />
+        <Button label={'Find'} onPress={onSearchButtonPress} />
       </View>
     </ScreenContainer>
   );

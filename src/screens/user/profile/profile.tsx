@@ -6,11 +6,30 @@ import Header from './components/header/header';
 import Followers from './components/followers/followers';
 import Button from '../../../components/button/button';
 import { colors } from '../../../common/colors';
+import { CompositeScreenProps } from '@react-navigation/native';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-const Profile = () => {
+type ProfileScreenProps = CompositeScreenProps<
+  NativeStackScreenProps<UserNavigationParamList, 'ProfileScreen'>,
+  NativeStackScreenProps<RootStackParamsList>
+>;
+
+const Profile = ({ navigation }: ProfileScreenProps) => {
+  const onBackButtonPress = () => {
+    if (navigation.canGoBack()) {
+      navigation.goBack();
+      return;
+    }
+    navigation.navigate('HomeScreen');
+  };
+
+  const onRepositoriesButtonPress = () => {
+    navigation.navigate('UserNavigation', { screen: 'RepositoresScreen' });
+  };
+
   return (
     <ScreenContainer padding={false}>
-      <Header onBackButtonPress={() => console.log()} />
+      <Header onBackButtonPress={onBackButtonPress} />
       <ScrollView>
         <Image style={styles.image} source={{ uri: 'https://aliancatraducoes.com/wp-content/uploads/2019/10/o-que-sao-cat-tools.jpg' }} />
         <View style={styles.content}>
@@ -21,7 +40,7 @@ const Profile = () => {
             mi, ut finibus erat arcu ac magna. Suspendisse nec auctor velit. Suspendisse nec auctor velit. Suspendisse nec auctor velit.
           </Text>
           <Followers />
-          <Button label={'See repositores'} onPress={() => console.log()} customColor={colors.secondary} />
+          <Button label={'See repositores'} onPress={onRepositoriesButtonPress} customColor={colors.secondary} />
         </View>
       </ScrollView>
     </ScreenContainer>
