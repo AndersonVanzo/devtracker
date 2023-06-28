@@ -20,10 +20,10 @@ export const styles = StyleSheet.create({
   email: {
     color: colors.text,
     fontSize: 14,
-    fontWeight: '500',
+    fontWeight: '400',
   },
   biography: {
-    color: colors.text,
+    color: colors.text_light,
     fontSize: 16,
     fontWeight: '400',
   },
