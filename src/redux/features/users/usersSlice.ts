@@ -22,6 +22,11 @@ export const usersSlice = createSlice({
       state.selectedUser = undefined;
     },
     addLastSearched: (state: Draft<UsersSlice>, action: PayloadAction<UserData>): void => {
+      const userIndex = state.lastSearched.findIndex(item => item.id === action.payload.id);
+      if (userIndex !== -1) {
+        state.lastSearched[userIndex] = action.payload;
+        return;
+      }
       const newLastSearched = state.lastSearched;
       if (newLastSearched.length === 5) {
         newLastSearched.shift();
