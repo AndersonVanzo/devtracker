@@ -74,7 +74,7 @@ const Profile = ({ navigation, route }: ProfileScreenProps) => {
   };
 
   React.useEffect(() => {
-    if (route.params.data) {
+    if (userData) {
       updateLoadedUser();
     } else {
       searchNewUser();
