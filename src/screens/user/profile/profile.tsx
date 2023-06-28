@@ -8,14 +8,27 @@ import Button from '../../../components/button/button';
 import { colors } from '../../../common/colors';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import Loader from './components/loader/loader';
+import { api } from '../../../api/api';
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
+import { getSelectedUser, removeSelectedUser, setSelectedUser } from '../../../redux/features/users/usersSlice';
+import NotFound from './components/not-found/notfound';
+import ErrorView from '../../../components/error-view/errorview';
 
 type ProfileScreenProps = CompositeScreenProps<
   NativeStackScreenProps<UserNavigationParamList, 'ProfileScreen'>,
   NativeStackScreenProps<RootStackParamsList>
 >;
 
-const Profile = ({ navigation }: ProfileScreenProps) => {
+const Profile = ({ navigation, route }: ProfileScreenProps) => {
+  const [loading, setLoading] = React.useState<boolean>(true);
+  const [error, setError] = React.useState<boolean>(false);
+
+  const userData = useAppSelector(getSelectedUser);
+  const dispatch = useAppDispatch();
+
   const onBackButtonPress = () => {
+    dispatch(removeSelectedUser());
     if (navigation.canGoBack()) {
       navigation.goBack();
       return;
@@ -27,22 +40,45 @@ const Profile = ({ navigation }: ProfileScreenProps) => {
     navigation.navigate('UserNavigation', { screen: 'RepositoresScreen' });
   };
 
+  const loadUserData = async () => {
+    setLoading(true);
+    setError(false);
+    const response = await api.users.get(route.params.search);
+    setLoading(false);
+    if (response.success && response.data) {
+      dispatch(setSelectedUser(response.data));
+      return;
+    }
+    if (!response.success && response.status !== 404) {
+      setError(true);
+    }
+  };
+
+  React.useEffect(() => {
+    loadUserData();
+  }, []);
+
   return (
     <ScreenContainer padding={false}>
       <Header onBackButtonPress={onBackButtonPress} />
-      <ScrollView>
-        <Image style={styles.image} source={{ uri: 'https://aliancatraducoes.com/wp-content/uploads/2019/10/o-que-sao-cat-tools.jpg' }} />
-        <View style={styles.content}>
-          <Text style={styles.username}>Anderson Vanzo</Text>
-          <Text style={styles.email}>anderson.vanzo01@gmail.com</Text>
-          <Text style={styles.biography}>
-            Bio - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras euismod, nibh non consectetur euismod, sapien tellus lacinia
-            mi, ut finibus erat arcu ac magna. Suspendisse nec auctor velit. Suspendisse nec auctor velit. Suspendisse nec auctor velit.
-          </Text>
-          <Followers />
-          <Button label={'See repositores'} onPress={onRepositoriesButtonPress} customColor={colors.secondary} />
-        </View>
-      </ScrollView>
+      {loading ? (
+        <Loader />
+      ) : userData ? (
+        <ScrollView>
+          <Image style={styles.image} source={{ uri: userData.avatar_url }} />
+          <View style={styles.content}>
+            <Text style={styles.username}>{userData.name}</Text>
+            {userData.email ? <Text style={styles.email}>{userData.email}</Text> : null}
+            {userData.bio ? <Text style={styles.biography}>{userData.bio}</Text> : null}
+            <Followers />
+            <Button label={'See repositores'} onPress={onRepositoriesButtonPress} customColor={colors.secondary} />
+          </View>
+        </ScrollView>
+      ) : error ? (
+        <ErrorView />
+      ) : (
+        <NotFound />
+      )}
     </ScreenContainer>
   );
 };
