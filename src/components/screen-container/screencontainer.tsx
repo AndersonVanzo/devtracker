@@ -9,8 +9,8 @@ interface ScreenContainerProps {
 
 const ScreenContainer = ({ children, padding = true }: ScreenContainerProps) => {
   return (
-    <SafeAreaView>
-      <View style={[styles.container, !padding && styles.noPadding]}>{children}</View>
+    <SafeAreaView style={styles.container}>
+      <View style={[styles.content, !padding && styles.noPadding]}>{children}</View>
     </SafeAreaView>
   );
 };
