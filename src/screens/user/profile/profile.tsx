@@ -8,7 +8,7 @@ import Button from '../../../components/button/button';
 import { colors } from '../../../common/colors';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import Loader from './components/loader/loader';
+import Loader from '../../../components/loader/loader';
 import { api } from '../../../api/api';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import {
@@ -86,7 +86,7 @@ const Profile = ({ navigation, route }: ProfileScreenProps) => {
     <ScreenContainer padding={false}>
       <Header onBackButtonPress={onBackButtonPress} />
       {loading ? (
-        <Loader />
+        <Loader message={'Searching dev...'} />
       ) : userData ? (
         <ScrollView showsVerticalScrollIndicator={false}>
           <Image style={styles.image} source={{ uri: userData.avatar_url }} />

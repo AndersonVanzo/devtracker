@@ -1,37 +1,23 @@
 import React from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { styles } from './styles';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import { colors } from '../../../../../common/colors';
-import LanguageColor from './language-color/languagecolor';
+import { getLanguageColor } from '../../../../../utils/getLanguageColor';
 
-const RepositoryCard = () => {
-  const onOpenButtonPress = () => {
-    console.log();
-  };
+interface RepositoryCardProps {
+  data: UserRepository;
+}
 
+const RepositoryCard = ({ data }: RepositoryCardProps) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>devtracker</Text>
-      <Text style={styles.description}>description</Text>
-      <View style={styles.footer}>
-        <View style={styles.infoContainer}>
-          <View style={styles.infoCell}>
-            <LanguageColor language={'TypeScript'} />
-            <Text style={styles.infoText}>TypeScript</Text>
-          </View>
-          <View style={styles.infoCell}>
-            <Icon name={'star-outline'} size={16} color={colors.title} />
-            <Text style={styles.infoText}>123</Text>
-          </View>
-          <View style={styles.infoCell}>
-            <View />
-            <Text style={styles.infoText}>0</Text>
-          </View>
-        </View>
-        <TouchableOpacity activeOpacity={0.75} style={styles.button} hitSlop={{ top: 24 }} onPress={onOpenButtonPress}>
-          <Text style={styles.buttonText}>Open</Text>
-        </TouchableOpacity>
+      <View style={[styles.icon, { backgroundColor: getLanguageColor(data.language) }]} />
+      <View style={styles.content}>
+        <Text style={styles.title}>{data.name}</Text>
+        {data.description ? (
+          <Text style={styles.description} numberOfLines={1}>
+            {data.description}
+          </Text>
+        ) : null}
       </View>
     </View>
   );
