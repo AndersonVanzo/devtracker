@@ -29,13 +29,20 @@ export const usersSlice = createSlice({
       newLastSearched.push(action.payload);
       state.lastSearched = newLastSearched;
     },
+    updatedSearchedUser: (state: Draft<UsersSlice>, action: PayloadAction<UserData>): void => {
+      const userIndex = state.lastSearched.findIndex(item => item.id === action.payload.id);
+      if (userIndex === -1) {
+        return;
+      }
+      state.lastSearched[userIndex] = action.payload;
+    },
     clearLastSearched: (state: Draft<UsersSlice>): void => {
       state.lastSearched = [];
     },
   },
 });
 
-export const { setSelectedUser, removeSelectedUser, addLastSearched, clearLastSearched } = usersSlice.actions;
+export const { setSelectedUser, removeSelectedUser, addLastSearched, updatedSearchedUser, clearLastSearched } = usersSlice.actions;
 export const getSelectedUser = (state: RootState) => state.selectedUser;
 export const getLastSearched = (state: RootState) => state.lastSearched;
 export default usersSlice.reducer;
