@@ -10,6 +10,7 @@ import { colors } from '../../common/colors';
 import { getLanguageColor } from '../../utils/getLanguageColor';
 import Content from './components/content/content';
 import AccessButton from './components/access-button/accessbutton';
+import ErrorView from '../../components/error-view/errorview';
 
 type RepositoryScreenProps = NativeStackScreenProps<RootStackParamsList, 'RepositoryScreen'>;
 
@@ -51,13 +52,19 @@ const Repository = ({ navigation, route }: RepositoryScreenProps) => {
     <ScreenContainer>
       {loading ? (
         <Loader message={'Collecting repository data'} />
-      ) : data ? (
+      ) : (
         <ScrollView contentContainerStyle={styles.container} showsVerticalScrollIndicator={false}>
           <Header headerColor={headerColor} onBackButtonPress={onBackButtonPress} />
-          <Content data={data} />
-          <AccessButton onPress={onAccessButtonPress} />
+          {data ? (
+            <React.Fragment>
+              <Content data={data} />
+              <AccessButton onPress={onAccessButtonPress} />
+            </React.Fragment>
+          ) : (
+            <ErrorView />
+          )}
         </ScrollView>
-      ) : null}
+      )}
     </ScreenContainer>
   );
 };
