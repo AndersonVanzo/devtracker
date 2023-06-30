@@ -7,7 +7,7 @@ import { TextInput, View } from 'react-native';
 import { styles } from './styles';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { getLastSearched, setSelectedUser } from '../../redux/features/users/usersSlice';
+import { getLastSearched, removeSelectedUser, setSelectedUser } from '../../redux/features/users/usersSlice';
 import RecentSearch from './components/recent-search/recentsearch';
 
 type HomeScreenProps = NativeStackScreenProps<RootStackParamsList, 'HomeScreen'>;
@@ -34,6 +34,7 @@ const Home = ({ navigation }: HomeScreenProps) => {
   };
 
   React.useEffect(() => {
+    dispatch(removeSelectedUser());
     return () => setSearchText('');
   }, []);
 
