@@ -25,6 +25,13 @@ const Repositores = ({ navigation }: RepositoriesScreenProps) => {
 
   const userData = useAppSelector(getSelectedUser);
 
+  const onSelectRepository = (data: UserRepositoryList[number]) => {
+    if (!userData) {
+      return;
+    }
+    navigation.navigate('RepositoryScreen', { userName: userData.login, repositoryName: data.name });
+  };
+
   const onBackButtonPress = () => {
     if (navigation.canGoBack()) {
       navigation.goBack();
@@ -66,7 +73,7 @@ const Repositores = ({ navigation }: RepositoriesScreenProps) => {
         <FlatList
           data={repos}
           style={styles.list}
-          renderItem={({ item }) => <RepositoryCard key={item.id} data={item as UserRepository} />}
+          renderItem={({ item }) => <RepositoryCard key={item.id} data={item} onSelect={onSelectRepository} />}
           contentContainerStyle={styles.listContent}
         />
       )}

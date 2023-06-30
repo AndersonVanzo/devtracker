@@ -10,6 +10,7 @@ declare global {
 
   type RootStackParamsList = {
     HomeScreen: undefined;
+    RepositoryScreen: { userName: string; repositoryName: string };
     UserNavigation: NavigatorScreenParams<UserNavigationParamList>;
   };
 

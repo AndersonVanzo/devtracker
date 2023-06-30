@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from '../screens/home/home';
 import Profile from '../screens/user/profile/profile';
 import Repositores from '../screens/user/repositores/repositores';
+import Repository from '../screens/repository/repository';
 
 const MainStack = createNativeStackNavigator<RootStackParamsList>();
 const UserStack = createNativeStackNavigator<UserNavigationParamList>();
@@ -20,6 +21,7 @@ const Routes = () => {
   return (
     <MainStack.Navigator initialRouteName={'HomeScreen'} screenOptions={{ headerShown: false }}>
       <MainStack.Screen name={'HomeScreen'} component={Home} />
+      <MainStack.Screen name={'RepositoryScreen'} component={Repository} />
       <MainStack.Screen name={'UserNavigation'} component={UserRoutes} />
     </MainStack.Navigator>
   );
