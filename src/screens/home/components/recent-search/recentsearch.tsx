@@ -18,6 +18,7 @@ const RecentSearch = ({ data, onSelect }: RecentSearchProps) => {
         data={data}
         renderItem={({ item }) => <UserCard key={item.id} data={item} onSelect={onSelect} />}
         contentContainerStyle={styles.content}
+        keyboardShouldPersistTaps={'handled'}
         showsVerticalScrollIndicator={false}
       />
     </View>

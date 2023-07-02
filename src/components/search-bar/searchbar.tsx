@@ -20,11 +20,11 @@ const SearchBar = React.forwardRef<TextInput, SearchBarProps>((props, ref) => {
         value={value}
         style={styles.input}
         placeholder={placeholder}
-        onEndEditing={onSubmit}
         onChangeText={onChangeValue}
         returnKeyType={'search'}
-        placeholderTextColor={colors.placeholder}
         autoCapitalize={'none'}
+        onSubmitEditing={onSubmit}
+        placeholderTextColor={colors.placeholder}
       />
       <View style={styles.icon}>
         <Icon name={'search'} size={24} color={colors.input_text} />
