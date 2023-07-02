@@ -22,7 +22,7 @@ export const usersSlice = createSlice({
       state.selectedUser = undefined;
     },
     addLastSearched: (state: Draft<UsersSlice>, action: PayloadAction<UserData>): void => {
-      const newLastSearched = state.lastSearched;
+      const newLastSearched = [...state.lastSearched];
       const userIndex = state.lastSearched.findIndex(item => item.id === action.payload.id);
       if (userIndex !== -1) {
         newLastSearched[userIndex] = action.payload;
@@ -35,7 +35,7 @@ export const usersSlice = createSlice({
       state.lastSearched = newLastSearched;
     },
     updatedSearchedUser: (state: Draft<UsersSlice>, action: PayloadAction<UserData>): void => {
-      const newLastSearched = state.lastSearched;
+      const newLastSearched = [...state.lastSearched];
       const userIndex = newLastSearched.findIndex(item => item.id === action.payload.id);
       if (userIndex === -1) {
         return;
