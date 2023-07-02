@@ -91,7 +91,7 @@ const Profile = ({ navigation, route }: ProfileScreenProps) => {
         <ScrollView showsVerticalScrollIndicator={false}>
           <Image style={styles.image} source={{ uri: userData.avatar_url }} />
           <View style={styles.content}>
-            <Text style={styles.username}>{userData.name}</Text>
+            <Text style={styles.username}>{userData.name ?? userData.login}</Text>
             {userData.email ? <Text style={styles.email}>{userData.email}</Text> : null}
             {userData.bio ? <Text style={styles.biography}>{userData.bio}</Text> : null}
             <Followers />
