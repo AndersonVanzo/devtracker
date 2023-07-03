@@ -1,8 +1,17 @@
 import { StyleSheet } from 'react-native';
+import { colors } from '../../../common/colors';
 
 export const styles = StyleSheet.create({
-  list: {
-    marginTop: 24,
+  sortContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    padding: 24,
+  },
+  sortText: {
+    color: colors.text,
+  },
+  sortType: {
+    color: colors.primary,
   },
   listContent: {
     gap: 12,
